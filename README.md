@@ -93,10 +93,13 @@ M/N/K 三维分片尺寸、片上存储占用与复用策略、片外通信带�
 
 ## 系统架构
 
-<img width="1010" height="992" alt="image" src="https://github.com/user-attachments/assets/1d53ae25-d357-445c-bcea-ea5c62370814" />
-                   图1 基于图模型与统一代价函数的三维矩阵分片优化系统框图
+<div align="center">
+  <img width="1010" height="992" alt="image" src="https://github.com/user-attachments/assets/1d53ae25-d357-445c-bcea-ea5c62370814" />
+  <br/>
+  <b>图1</b> 基于图模型与统一代价函数的三维矩阵分片优化系统框图
+</div>
 
-本系统通过 **"场景识别—分流决策—图搜索优化—调度与生成"** 的流水线实现三维矩阵的自适应分片。核心组件包括：
+如上图所示，本系统通过 **"场景识别—分流决策—图搜索优化—调度与生成"** 的流水线实现三维矩阵的自适应分片。核心组件包括：
 
 ### 核心组件说明
 
@@ -135,8 +138,12 @@ M/N/K 三维分片尺寸、片上存储占用与复用策略、片外通信带�
 
 ### 2. 图模型建模
 
-<img width="679" height="670" alt="image" src="https://github.com/user-attachments/assets/8f0ce55e-5e95-49a7-8ff3-519d299635bc" />
-                   图2 三维矩阵分片问题的图模型 
+<div align="center">
+  <img width="679" height="670" alt="image" src="https://github.com/user-attachments/assets/8f0ce55e-5e95-49a7-8ff3-519d299635bc" />
+  <br/>
+  <b>图2</b> 三维矩阵分片问题的图模型
+</div>
+
 如上图所示，将三维矩阵分片问题建模为图搜索问题，图模型中包含以下元素：
 
 **节点（State）**：表示一个分片方案，包含：
