@@ -18,10 +18,6 @@
   - [硬件权重校准](#5-硬件权重校准)
 - [性能对比](#性能对比)
 - [有益效果](#有益效果)
-- [快速开始](#快速开始)
-- [使用示例](#使用示例)
-- [可选替代方案](#可选替代方案)
-- [许可证](#许可证)
 
 ---
 
@@ -52,8 +48,8 @@
 
 ### 缺陷一：缺乏自适应与全局优化能力
 
-- **固定尺寸切分**采用预设分片尺寸，不随矩阵长宽比（M/N/K）、数据类型与精度、算子融合方式以及硬件资源（片上存储容量、带宽、计算阵列规模）变化而调整；本质上不进行搜索与优化，易导致片上存储利用不足、片外带宽占用或访存次数偏高、计算阵列利用率下降。
-- **启发式规则**往往以局部指标为依据逐步调整分片（具有贪心特征），缺乏全局视野与对后续影响的统筹，容易在不同矩阵形状、数据类型与硬件参数变化下收敛到局部最优，难以稳定得到全局最优解。
+**固定尺寸切分**采用预设分片尺寸，不随矩阵长宽比（M/N/K）、数据类型与精度、算子融合方式以及硬件资源（片上存储容量、带宽、计算阵列规模）变化而调整；本质上不进行搜索与优化，易导致片上存储利用不足、片外带宽占用或访存次数偏高、计算阵列利用率下降。
+**启发式规则**往往以局部指标为依据逐步调整分片（具有贪心特征），缺乏全局视野与对后续影响的统筹，容易在不同矩阵形状、数据类型与硬件参数变化下收敛到局部最优，难以稳定得到全局最优解。
 
 ### 缺陷二：多重约束与优化目标强耦合，难以协调
 
@@ -242,36 +238,3 @@ A(n) = g(n) + h(n)
 ### 3. 对不同硬件平台与不同任务场景的自适应能力，大幅降低部署成本
 
 图的代价模型中的权重系数（α, β, γ）可根据目标硬件的具体特性进行配置。同时，图搜索本身不依赖于任何针对特定形状或硬件的预设规则，其优化目标（代价最小化）和约束条件（内存不超限）是通用化的。同一套系统只需输入不同的硬件参数和矩阵尺寸，即可自动生成相应的最优分片方案，无需为每个新平台或新任务重新设计规则或手动调参。
-
----
-
-## 快速开始
-
-### 环境要求
-
-- Python 3.8+
-- NumPy
-
-### 安装
-
-```bash
-git clone https://github.com/<your-username>/graph-matrix-partition-optimizer.git
-cd graph-matrix-partition-optimizer
-pip install numpy
-
-基本使用
-
-from matrix_partition_optimizer import optimize_partition
-
-# 优化一个 4096×4096×4096 的矩阵乘法分片方案
-result = optimize_partition(M=4096, N=4096, K=4096)
-
-print("最优分片方案：")
-print(f"  M_slice = {result['optimal_partition']['M_slice']}")
-print(f"  N_slice = {result['optimal_partition']['N_slice']}")
-print(f"  K_slice = {result['optimal_partition']['K_slice']}")
-print(f"  总切片数 = {result['optimal_partition']['total_slices']}")
-print(f"  预估耗时 = {result['performance_metrics']['estimated_total_time_ms']:.4f} ms")
-print(f"  内存利用率 = {result['performance_metrics']['memory_utilization_percent']:.1f}%")
-
-
